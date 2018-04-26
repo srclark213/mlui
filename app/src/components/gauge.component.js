@@ -1,10 +1,10 @@
 import React from 'react';
-import Gauge from 'react-svg-gauge';
+import '../styles/gauge.css';
 
 const GaugeComponent = ({ value }) => {
     return (
-        <div>
-            <Gauge value={value} width={400} height={320} label="Result" color={"#32CD32"} />
+        <div className="progressbar">
+            <div className="progress" style={{ width: value + '%' }}></div><div className="progressvalue">{value}%</div>
         </div>
     )
 }

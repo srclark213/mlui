@@ -48,14 +48,15 @@ class App extends Component {
     let sliders = [...this.state.sliders];
     let inputs = dropdowns.map(dropdown => { return {id: dropdown.id, value: dropdown.value }})
       .concat(sliders.map(slider => { return { id: slider.id, value: slider.value }}))
-      .concat([{id: 5, value: 0}]);
-    let qsparams = inputs.sort((item1, item2) => item1.id - item2.id).map(item => item.value);
+      .concat([{id: 5, value: 0}])
+      .sort((item1, item2) => item1.id - item2.id)
+      .map(item => item.value);
 
-    var url = "http://localhost:5000/api/process-inputs?inputs="+qsparams.join(",");
+    var url = "http://localhost:5000/api/process-inputs?inputs="+inputs.join(",");
     
     fetch(url)
     .then(res => res.json())
-    .then(data => this.setState({gauge: data.result }));
+    .then(data => this.setState({ gauge: data.result }));
   }
 
   debouncedApiHit = debounce(this.fetchResult, 750);
