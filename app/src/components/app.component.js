@@ -42,12 +42,14 @@ class App extends Component {
   fetchResult = () => {
     let dropdowns = [...this.state.dropdowns];
     let sliders = [...this.state.sliders];
-    let inputs = dropdowns.map(dropdown => { return {id: dropdown.id, value: dropdown.value }}).concat(sliders.map(slider => { return { id: slider.id, value: slider.value }})).concat([{id: 5, value: 0}]);
+    let inputs = dropdowns.map(dropdown => { return {id: dropdown.id, value: dropdown.value }})
+      .concat(sliders.map(slider => { return { id: slider.id, value: slider.value }}))
+      .concat([{id: 5, value: 0}]);
     let qsparams = inputs.sort((item1, item2) => item1.id - item2.id).map(item => item.value);
 
     var url = "http://localhost:5000/api/process-inputs?inputs="+qsparams.join(",");
     console.log(url);
-    fetch(url).then(res => console.log(res));
+    fetch(url).then(res => res.json()).then(data => console.log(data));
 
     console.log(qsparams);
   }
