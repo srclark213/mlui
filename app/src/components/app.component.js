@@ -1,31 +1,61 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SliderInput from './slider-input.component';
+
+import DropdownInput from './dropdown-input.component';
 import Gauge from './gauge.component';
 import AppBar from 'material-ui/AppBar';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
+import InitialState from '../config/initialState';
+
 import '../styles/app.css';
 
 class App extends Component {
 
-  state = {};
+  state = {
+    sliders: [],
+    dropdowns: []
+  };
 
   constructor(props) {
     super(props);
 
-    this.state.sliders = Array.apply(null, Array(20)).map(() => 60);
+    this.state = InitialState;
   }
 
-  handleSlider = (index, value) => {
+  handleSlider = (id, value) => {
     let sliders = [...this.state.sliders];
-    sliders[index] = value;
+    let index = sliders.findIndex(item => item.id === id);
+    sliders[index].value = value;
     this.setState({sliders});
   };
+
+  handleDropdown = (id, value) => {
+    let dropdowns = [...this.state.dropdowns];
+    let index = dropdowns.findIndex(item => item.id === id);
+    dropdowns[index].value = value;
+    this.setState({dropdowns});
+
+    this.fetchResult();
+  }
+
+  fetchResult = () => {
+    let dropdowns = [...this.state.dropdowns];
+    let sliders = [...this.state.sliders];
+    let inputs = dropdowns.map(dropdown => { return {id: dropdown.id, value: dropdown.value }}).concat(sliders.map(slider => { return { id: slider.id, value: slider.value }}));
+    let qsparams = inputs.sort((item1, item2) => item1.id - item2.id).map(item => item.value);
+
+    var url = "http://localhost:5000/api/process-inputs?inputs="+qsparams.join(",");
+    console.log(url);
+    fetch(url).then(res => console.log(res));
+
+    console.log(qsparams);
+  }
 
   render() {
 
     var containerStyle = {
-      width: '800px',
+      width: '1200px',
       margin: '0 auto'
     }
 
@@ -40,9 +70,17 @@ class App extends Component {
             <Card>
               <CardTitle title="Inputs" />
               <CardText>
-                {this.state.sliders.map((name, index) => {
-                  return <div><SliderInput label={"Input "+(index+1)} value={this.state.sliders[index]} onChange={(event, value) => this.handleSlider(index, value)} /></div>;
-                })}
+                <div style={{display: "flex"}}>
+                  <div style={{flex: "50%" }}>
+                  {this.state.sliders.map((slider) => {
+                    return <div key={slider.id}><SliderInput label={slider.label} value={slider.value} minVal={slider.minVal} maxVal={slider.maxVal} onChange={(event, value) => this.handleSlider(slider.id, value)} /></div>;
+                  })}
+                  </div>
+
+                  <div style={{flex: "50%" }}>
+                  {this.state.dropdowns.map((obj) => {return <DropdownInput key={obj.id} options={obj.options} value={obj.value} label={obj.label} onChange={(event, index, value) => this.handleDropdown(obj.id, value)} />})}
+                  </div>
+                </div>
               </CardText>
             </Card>
             <Card>

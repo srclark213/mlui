@@ -1,21 +1,23 @@
 import React from 'react';
 import Slider from 'material-ui/Slider';
 
-const SliderInput = ({ label, value, onChange }) => {
+const SliderInput = ({ label, value, minVal, maxVal, onChange }) => {
     return (
-        <div>
-            <label style={{ display: 'inline-block', width: '10%', fontSize: '20px', paddingRight: '10px' }}>{label}</label>
+        <div style={{textAlign: "left"}}>
+            <label style={{ fontSize: '16px' }}>{label}</label>
 
-            <Slider
-                min={0}
-                max={100}
-                step={1}
-                value={value}
-                onChange={onChange}
-                style={{ width: '50%', display: 'inline-block' }}
-                sliderStyle={{ margin: '0' }}
-            />
-            <label style={{ display: 'inline-block', width: '10%', fontSize: '20px', paddingLeft: '10px' }}>{value}</label>
+            <div style={{display: "flex"}}>
+                <Slider
+                    min={minVal}
+                    max={maxVal}
+                    step={1}
+                    value={value}
+                    onChange={onChange}
+                    style={{ flex: '80%' }}
+                    sliderStyle={{ margin: '15px' }}
+                />
+                <label style={{ flex: '15%', textAlign: "center", fontSize: '16px' }}>{value}</label>
+            </div>
         </div>
     )
 }
