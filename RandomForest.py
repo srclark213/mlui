@@ -2,7 +2,7 @@ from sklearn.externals import joblib
 from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 
-class RandomForest():
+class RandomForest:
 
     def __init__(self):
         self.model = joblib.load("serialModel/model.pkl")
@@ -39,9 +39,4 @@ class RandomForest():
         :return: % Chance of Success
         """
         return self.model.predict(np.asarray(inputs).reshape(1, -1)) * 100
-
-
-if __name__ == "__main__":
-    predictor = RandomForest()
-    print(predictor.predict([100,400,300,400,500,500,700,100,900,1000,1100,1200,1300,1400,1500,1000]))
 
