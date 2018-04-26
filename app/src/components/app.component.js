@@ -49,7 +49,7 @@ class App extends Component {
     let qsparams = inputs.sort((item1, item2) => item1.id - item2.id).map(item => item.value);
 
     var url = "http://localhost:5000/api/process-inputs?inputs="+qsparams.join(",");
-    
+
     fetch(url)
     .then(res => res.json())
     .then(data => this.setState({gauge: data.result }));
@@ -76,7 +76,7 @@ class App extends Component {
               <CardTitle title="Inputs" />
               <CardText>
                 <div style={{display: "flex"}}>
-                  <div style={{flex: "50%" }}>
+                  <div style={{flex: "50%", paddingTop: "25px" }}>
                   {this.state.sliders.map((slider) => {
                     return <div key={slider.id}><SliderInput label={slider.label} value={slider.value} minVal={slider.minVal} maxVal={slider.maxVal} onChange={(event, value) => this.handleSlider(slider.id, value)} /></div>;
                   })}
