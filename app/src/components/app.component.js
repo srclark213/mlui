@@ -6,8 +6,6 @@ import AppBar from 'material-ui/AppBar';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import '../styles/app.css';
 
-
-
 class App extends Component {
 
   state = {};
