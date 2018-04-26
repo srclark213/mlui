@@ -1,5 +1,6 @@
 #!flask/bin/python
 from flask import Flask, request, jsonify, render_template
+import RandomForest
 
 app = Flask(__name__)
 
@@ -15,8 +16,8 @@ def processInputs():
     return jsonify({'result': machine_learning_func(inputList)})
 
 def machine_learning_func(inputs: list) -> float:
-    # DO MACHINE LEARNING STUFF
-    return .3
+    regressor = RandomForest()
+    return regressor.predict(inputs)
 
 if __name__ == '__main__':
     app.run(debug=True)
