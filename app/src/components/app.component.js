@@ -21,6 +21,7 @@ class App extends Component {
     super(props);
 
     this.state = InitialState;
+    this.state.gauge = 0;
   }
 
   handleSlider = (id, value) => {
@@ -48,10 +49,10 @@ class App extends Component {
     let qsparams = inputs.sort((item1, item2) => item1.id - item2.id).map(item => item.value);
 
     var url = "http://localhost:5000/api/process-inputs?inputs="+qsparams.join(",");
-    console.log(url);
-    fetch(url).then(res => res.json()).then(data => console.log(data));
-
-    console.log(qsparams);
+    
+    fetch(url)
+    .then(res => res.json())
+    .then(data => this.setState({gauge: data.result }));
   }
 
   render() {
@@ -61,11 +62,13 @@ class App extends Component {
       margin: '0 auto'
     }
 
+    console.log(this.state.gauge);
+
     return (
       <MuiThemeProvider>
         <div className="App" style={containerStyle}>
           <AppBar
-            title="Machine Learning Stuffz"
+            title="Success Prediction Engine"
             showMenuIconButton={false}
           />
           <div className="App-intro">
@@ -87,7 +90,7 @@ class App extends Component {
             </Card>
             <Card>
               <CardText>
-                <Gauge value={75} />
+                <Gauge value={this.state.gauge} />
               </CardText>
             </Card>
           </div>
