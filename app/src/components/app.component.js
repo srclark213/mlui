@@ -4,7 +4,7 @@ import SliderInput from './slider-input.component';
 import Gauge from './gauge.component';
 import AppBar from 'material-ui/AppBar';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-import './App.css';
+import '../styles/app.css';
 
 
 
