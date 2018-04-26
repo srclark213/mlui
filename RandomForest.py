@@ -38,5 +38,5 @@ class RandomForest:
         15: Score on Math Exam: 19-80
         :return: % Chance of Success
         """
-        return self.model.predict(np.asarray(inputs).reshape(1, -1)) * 100
+        return np.round(self.model.predict(np.asarray(inputs).reshape(1, -1)) * 100, 2)
 

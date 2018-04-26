@@ -7,6 +7,7 @@ import Gauge from './gauge.component';
 import AppBar from 'material-ui/AppBar';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import InitialState from '../config/initialState';
+import { debounce } from '../utilities';
 
 import '../styles/app.css';
 
@@ -29,6 +30,8 @@ class App extends Component {
     let index = sliders.findIndex(item => item.id === id);
     sliders[index].value = value;
     this.setState({sliders});
+
+    this.debouncedApiHit();
   };
 
   handleDropdown = (id, value) => {
@@ -37,7 +40,7 @@ class App extends Component {
     dropdowns[index].value = value;
     this.setState({dropdowns});
 
-    this.fetchResult();
+    this.debouncedApiHit();
   }
 
   fetchResult = () => {
@@ -55,14 +58,14 @@ class App extends Component {
     .then(data => this.setState({gauge: data.result }));
   }
 
+  debouncedApiHit = debounce(this.fetchResult, 750);
+
   render() {
 
     var containerStyle = {
       width: '1200px',
       margin: '0 auto'
     }
-
-    console.log(this.state.gauge);
 
     return (
       <MuiThemeProvider>

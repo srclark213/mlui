@@ -1,5 +1,7 @@
 #!flask/bin/python
 from flask import Flask, request, jsonify, render_template
+from flask_cors import cross_origin
+
 from RandomForest import RandomForest
 
 app = Flask(__name__)
@@ -9,6 +11,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/api/process-inputs')
+@cross_origin()
 def processInputs():
     inputs = request.args.get('inputs')
     inputList = inputs.split(',')
