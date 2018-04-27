@@ -6,8 +6,9 @@ import DropdownInput from './dropdown-input.component';
 import Gauge from './gauge.component';
 import AppBar from 'material-ui/AppBar';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-import InitialState from '../config/initialState';
+import InitialState from '../config/initialState.json';
 import { debounce } from '../utilities';
+import { ScaleLoader } from 'react-spinners';
 
 import '../styles/app.css';
 
