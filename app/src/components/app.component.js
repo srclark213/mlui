@@ -22,7 +22,7 @@ class App extends Component {
     super(props);
 
     this.state = InitialState;
-    this.state.gauge = 99.99;
+    this.state.gauge = 0;
   }
 
   handleSlider = (id, value) => {
